@@ -1,19 +1,25 @@
 package calculator.domain;
 
+import java.util.Collections;
 import java.util.List;
 
-public class Delimiter {
+public class Delimiters {
 
     private final List<Character> delimiters = List.of(',', ':');
 
-    private Delimiter() {}
+    private Delimiters() {}
 
-    public Delimiter(Character customDelimiter) {
+    public Delimiters(Character customDelimiter) {
         if (customDelimiter == null) {
             return;
         }
         validate(customDelimiter);
         delimiters.add(customDelimiter);
+    }
+
+    public List<Character> getDelimiters() {
+//        return new ArrayList<>(delimiters);
+        return Collections.unmodifiableList(delimiters);
     }
 
     private void validate(Character customDelimiter) {

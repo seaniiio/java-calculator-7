@@ -1,8 +1,10 @@
 package calculator.parser;
 
-import java.util.regex.Pattern;
+import java.util.List;
 
 public class Parser {
+
+    private String excludeCustomDelimiter;
 
     public Character splitCustomDelimiter(String input) {
         if (input.startsWith("//")) {
@@ -10,12 +12,22 @@ public class Parser {
             if (!input.substring(3, 5).equals("\\n")) {
                 throw new IllegalArgumentException("입력 형식 오류");
             }
+            excludeCustomDelimiter = input.substring(5);
             return customDelimiter;
         }
+        excludeCustomDelimiter = input;
         return null;
     }
 
-    public void parseInput(String input) {
+    public List<String> splitOperands(List<Character> delimiters) {
+        StringBuilder delimiterRegex = new StringBuilder();
 
+        for (Character delimiter : delimiters) {
+            delimiterRegex.append(delimiter);
+            delimiterRegex.append("|");
+        }
+
+        delimiterRegex.substring(0, delimiterRegex.length() - 1);
+        return List.of(excludeCustomDelimiter.split(String.valueOf(delimiterRegex)));
     }
 }

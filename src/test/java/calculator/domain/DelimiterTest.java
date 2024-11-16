@@ -12,6 +12,6 @@ class DelimiterTest {
     @ValueSource(chars = {':', ','})
     public void 커스텀_연산자_검증_테스트(Character customDelimiter) {
         Assertions.assertThatIllegalArgumentException()
-                .isThrownBy(() -> new Delimiter(customDelimiter));
+                .isThrownBy(() -> new Delimiters(customDelimiter));
     }
 }
