@@ -15,12 +15,14 @@ public class CalculatorService {
         this.parser = parser;
     }
 
-    public void calculate(String input) {
+    public Integer calculate(String input) {
         Character customDelimiter = parser.splitCustomDelimiter(input);
         this.delimiter = new Delimiters(customDelimiter);
 
         List<Character> delimiters = this.delimiter.getDelimiters();
         List<String> operandsRaw = parser.splitOperands(delimiters);
         this.operands = Operands.createOperands(operandsRaw);
+
+        return this.operands.getSum();
     }
 }

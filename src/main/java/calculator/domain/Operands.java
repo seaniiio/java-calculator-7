@@ -17,6 +17,10 @@ public class Operands {
         return new Operands(operands);
     }
 
+    public Integer getSum() {
+        return operands.stream().reduce(0, Integer::sum);
+    }
+
     private static void validate(List<String> operandsRaw) {
         for (String operand : operandsRaw) {
             int parsedOperand = validateFormat(operand);
