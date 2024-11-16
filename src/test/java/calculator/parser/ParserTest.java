@@ -49,6 +49,6 @@ class ParserTest {
 
         parser.splitCustomDelimiter("1:2:3");
         Assertions.assertThat(parser.splitOperands(delimiters))
-                .containsAll(expected);
+                .isEqualTo(expected);
     }
 }

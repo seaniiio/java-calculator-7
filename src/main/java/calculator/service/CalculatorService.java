@@ -21,8 +21,8 @@ public class CalculatorService {
 
         List<Character> delimiters = this.delimiter.getDelimiters();
         List<String> operandsRaw = parser.splitOperands(delimiters);
-        this.operands = Operands.createOperands(operandsRaw);
 
+        this.operands = Operands.createOperands(operandsRaw);
         return this.operands.getSum();
     }
 }

@@ -20,14 +20,15 @@ public class Parser {
     }
 
     public List<String> splitOperands(List<Character> delimiters) {
-        StringBuilder delimiterRegex = new StringBuilder();
+        StringBuilder delimiterRegexBuilder = new StringBuilder();
 
         for (Character delimiter : delimiters) {
-            delimiterRegex.append(delimiter);
-            delimiterRegex.append("|");
+            delimiterRegexBuilder.append("\\");
+            delimiterRegexBuilder.append(delimiter);
+            delimiterRegexBuilder.append("|");
         }
 
-        delimiterRegex.substring(0, delimiterRegex.length() - 1);
-        return List.of(excludeCustomDelimiter.split(String.valueOf(delimiterRegex)));
+        String delimiterRegex = delimiterRegexBuilder.substring(0, delimiterRegexBuilder.length() - 1);
+        return List.of(excludeCustomDelimiter.split(delimiterRegex));
     }
 }
