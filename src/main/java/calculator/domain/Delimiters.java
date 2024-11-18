@@ -1,7 +1,6 @@
 package calculator.domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Delimiters {
@@ -20,8 +19,7 @@ public class Delimiters {
     }
 
     public List<Character> getDelimiters() {
-//        return new ArrayList<>(delimiters);
-        return Collections.unmodifiableList(this.delimiters);
+        return new ArrayList<>(delimiters);
     }
 
     private void validate(Character customDelimiter) {
