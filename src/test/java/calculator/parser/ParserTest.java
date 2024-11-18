@@ -7,17 +7,21 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class ParserTest {
     @DisplayName("커스텀 연산자가 존재하는 경우, 구분하는지 확인")
-    @Test
-    void 커스텀_연산자_구분_테스트_1() {
+    @ParameterizedTest
+    @CsvSource({
+            "//$\\n1:2$3, $",
+            "//-\\n1:2-3, -"
+    })
+    void 커스텀_연산자_구분_테스트_1(String input, Character expected) {
         Parser parser = new Parser();
-        String input = "//$\\n1:2$3";
 
         assertThat(parser.splitCustomDelimiter(input))
-                .isEqualTo('$');
+                .isEqualTo(expected);
     }
 
     @DisplayName("커스텀 연산자가 존재하지 않는 경우, null 확인")
@@ -48,6 +52,19 @@ class ParserTest {
         List<String> expected = List.of("1", "2", "3");
 
         parser.splitCustomDelimiter("1:2:3");
+        Assertions.assertThat(parser.splitOperands(delimiters))
+                .isEqualTo(expected);
+    }
+
+
+    @DisplayName("커스텀 연산자가 -인 경우")
+    @Test
+    void 커스텀_연산자_마이너스_구분_테스트() {
+        Parser parser = new Parser();
+        List<Character> delimiters = List.of(':', ',', '-');
+        List<String> expected = List.of("1", "2", "3");
+
+        parser.splitCustomDelimiter("1-2-3");
         Assertions.assertThat(parser.splitOperands(delimiters))
                 .isEqualTo(expected);
     }
